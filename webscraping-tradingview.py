@@ -17,10 +17,19 @@ headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML
 
 		
 
+req= Request(url, headers=headers)
+webpage = urlopen(req).read()
+soup = BeautifulSoup(webpage, 'html.parser')
 
 
+title = soup.title
+print(title.text)
 
-
+companies = soup.findAll('span',attrs={'class':'tv-screener__description'})
+print()
+for company in companies[:5]:
+    print(company.text.strip())
+print()
 
 #SOME USEFUL FUNCTIONS IN BEAUTIFULSOUP
 #-----------------------------------------------#
