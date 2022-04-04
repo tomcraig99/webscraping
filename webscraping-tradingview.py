@@ -22,14 +22,14 @@ webpage = urlopen(req).read()
 soup = BeautifulSoup(webpage, 'html.parser')
 
 
-title = soup.title
-print(title.text)
+'''title = soup.title
+print(title.text)'''
 
-companies = soup.findAll('span',attrs={'class':'tv-screener__description'})
+'''companies = soup.findAll('span',attrs={'class':'tv-screener__description'})
 print()
 for company in companies[:5]:
     print(company.text.strip())
-print()
+print()'''
 
 #SOME USEFUL FUNCTIONS IN BEAUTIFULSOUP
 #-----------------------------------------------#
@@ -42,3 +42,23 @@ print()
 #Limit = find with limit of 1
 #keyword: allText = Obj.find(id="title",class="text")
 
+stock_table = soup.findAll('tbody')
+
+#get only first table from list of all tables
+stock_table = stock_table[0]
+
+rows = stock_table.findAll('tr')
+for row in rows[:5]:
+    columns = row.findAll('td')
+    name = columns[0].find('span',attrs={'class':'tv-screener__description'}).text.strip()
+    price = float(columns[1].text.strip())
+    change = float(columns[2].text.strip().rstrip('%'))
+
+    startPrice = round(price/(1+(change/100)),2)
+    print()
+    print(f"Company Name: {name}")
+    print(f"Current Price: {price}")
+    print(f"Percent Change: {change}")
+    print(f"Starting price: {startPrice}")
+    print()
+    
