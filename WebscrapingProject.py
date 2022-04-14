@@ -64,4 +64,5 @@ for row in rows[1:6]:
         print("Sent text message, buy!")
         #textmessage = client.messages.create(to=myNumber, from_=twilioNumber, body=f"The price of {name} has dropped below your desired threshold! You should buy soon!")
     print()
-    input("Press any key to continue ")
+    if ranking != '5':
+        input("Press any key to continue ")
